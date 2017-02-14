@@ -1,0 +1,5 @@
+We talked about what we wanted to acomplish with the project, and how much time each requirement would take. We also talked about what languages we could write the project in so that we could more easily add multiplayer and some sort of graphical interface. Eventually we decided to use java because it would be easy to add some form of multiplayer using the java sockets api. We might also be able to add a gui with javafx or java swing.
+Time spent planning (1 hour)
+
+We started talking about the structure of the project and what classes will go where, how the multiplayer will be added, and how the ai will play against human players. For the multiplayer, we settled on some sort of matchmaking system that will detect other players searching for a game and match you up with them. For the single player, the computer will randomly select tiles until it gets a hit on a battleship, and then strategically play around that point until the ship is sunk, similar to how a human would play in that situation.
+Time spent planning (2 hours)
