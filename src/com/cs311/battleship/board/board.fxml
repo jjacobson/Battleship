@@ -1,0 +1,4 @@
+<?import javafx.scene.layout.GridPane?>
+<GridPane fx:controller="com.cs311.battleship.board.BoardController"
+          xmlns:fx="http://javafx.com/fxml">
+</GridPane>

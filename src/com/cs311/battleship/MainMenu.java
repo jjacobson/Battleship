@@ -2,9 +2,7 @@ package com.cs311.battleship;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -16,7 +14,7 @@ public class MainMenu extends Application {
         VBox pane = loader.load();
         MenuController controller = loader.getController();
         menu.setTitle("Battleship Menu");
-        menu.setScene(new Scene(pane, 300, 275));
+        menu.setScene(new Scene(pane, 300, 300));
         menu.show();
     }
 
