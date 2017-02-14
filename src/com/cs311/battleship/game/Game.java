@@ -10,10 +10,11 @@ import javafx.stage.Stage;
 public class Game {
 
     public Game(Stage menuStage) throws Exception {
-        Board board = new Board();
+        Board playerBoard = new Board();
+        Board enemyBoard = new Board();
         BoardDisplay display = new BoardDisplay();
-        display.start(menuStage);
-
+        //board.setBoard(display.getBoard());
+        display.start(menuStage, playerBoard, enemyBoard);
     }
 
 }

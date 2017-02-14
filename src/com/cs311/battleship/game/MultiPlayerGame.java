@@ -1,7 +1,5 @@
 package com.cs311.battleship.game;
 
-import com.cs311.battleship.board.Board;
-import com.cs311.battleship.board.BoardDisplay;
 import javafx.stage.Stage;
 
 /**
