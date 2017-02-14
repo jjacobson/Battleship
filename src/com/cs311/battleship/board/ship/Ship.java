@@ -7,11 +7,13 @@ public class Ship {
 
     private int x;
     private int y;
+    private int length;
     private Direction direction;
 
-    public Ship(int x, int y, Direction direction) {
+    public Ship(int x, int y, int length, Direction direction) {
         this.x = x;
         this.y = y;
+        this.length = length;
         this.direction = direction;
     }
 
@@ -21,6 +23,10 @@ public class Ship {
 
     public int getY() {
         return y;
+    }
+
+    public int getLength() {
+        return length;
     }
 
     public Direction getDirection() {
