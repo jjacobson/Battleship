@@ -17,6 +17,7 @@ public class BoardDisplay {
         BoardController controller = loader.getController();
         board.setTitle("Battleship Game");
         board.setScene(new Scene(pane, 1200, 600));
+        board.centerOnScreen();
         board.show();
     }
 }
