@@ -13,6 +13,14 @@ public class BoardCell {
     private boolean containsShip;
     private boolean guessed;
 
+    /**
+     * Default constructor for cells with no x,y coordinate
+     * used for the placable ships at the beginning of game
+     */
+    public BoardCell() {
+
+    }
+
     public BoardCell(int x, int y) {
         this.x = x;
         this.y = y;
