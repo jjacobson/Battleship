@@ -2,6 +2,7 @@ package com.cs311.battleship.game;
 
 import com.cs311.battleship.board.Board;
 import com.cs311.battleship.board.BoardDisplay;
+import com.cs311.battleship.player.Player;
 import javafx.stage.Stage;
 
 /**
@@ -18,6 +19,10 @@ public class Game {
         BoardDisplay display = new BoardDisplay();
         //board.setBoard(display.getBoard());
         display.start(menuStage, playerBoard, enemyBoard);
+    }
+
+    public void makeMove(Player player) {
+
     }
 
 }
