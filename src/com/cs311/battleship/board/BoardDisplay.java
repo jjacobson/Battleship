@@ -25,19 +25,26 @@ public class BoardDisplay {
     private Board enemyBoard;
 
     private BoardController controller;
+
     private boolean placingShip;
+    private boolean inPlace;
     private Ship shipPlacing;
 
 
     public void start(Stage stage, Board playerBoard, Board enemyBoard) throws Exception {
         this.playerBoard = playerBoard;
         this.enemyBoard = enemyBoard;
+        this.placingShip = false;
+        this.inPlace = false;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("board.fxml"));
         Pane box = loader.load();
         controller = loader.getController();
         stage.setTitle("Battleship Game");
-        stage.setScene(new Scene(box, 1200, 600));
+        Scene scene = new Scene(box, 1200, 600);
+        stage.setScene(scene);
         stage.centerOnScreen();
+        // key press listener
+        scene.setOnKeyPressed(new BoardKeyListener(this, playerBoard));
         // populate grids
         GridPane playerGrid = (GridPane) box.lookup("#playerGrid");
         GridPane enemyGrid = (GridPane) box.lookup("#enemyGrid");
@@ -67,9 +74,12 @@ public class BoardDisplay {
 
     private void displayPlaceableShips(VBox shipBox) {
         List<Ship> ships = new ArrayList<>();
-        for (int i = 2; i < 7; i++) {
-            ships.add(new Ship(i));
-        }
+        ships.add(new Ship(5));
+        ships.add(new Ship(4));
+        ships.add(new Ship(3));
+        ships.add(new Ship(3));
+        ships.add(new Ship(2));
+
         for (Ship ship : ships) {
             displayPlaceableShip(shipBox, ship);
         }
@@ -112,4 +122,11 @@ public class BoardDisplay {
         return shipPlacing;
     }
 
+    public boolean isInPlace() {
+        return inPlace;
+    }
+
+    public void setInPlace(boolean inPlace) {
+        this.inPlace = inPlace;
+    }
 }

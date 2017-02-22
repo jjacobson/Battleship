@@ -23,9 +23,11 @@ public class CellClickListener implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
         if (display.isPlacingShip()) {
-            // todo
-        } else {
-
+            if (display.isInPlace()) {
+                board.removeShip(display.getShipPlacing());
+            }
+            board.placeShip(display.getShipPlacing(), cell.getX(), cell.getY());
+            return;
         }
     }
 }
