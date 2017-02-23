@@ -58,6 +58,7 @@ public class BoardCell {
 
     public void setColor(String color) {
         button.setStyle("-fx-background-radius: 0; -fx-background-color: " + color + ";" +
-                " -fx-border-radius: 0; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
+                " -fx-border-radius: 0; -fx-focus-color: transparent;" +
+                " -fx-faint-focus-color: transparent; -fx-background-insets: 0, 1, 2;");
     }
 }
