@@ -3,7 +3,6 @@ package com.cs311.battleship.board;
 import com.cs311.battleship.board.ship.Direction;
 import com.cs311.battleship.board.ship.Ship;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -11,9 +10,11 @@ import javafx.scene.input.KeyEvent;
  */
 public class BoardKeyListener implements EventHandler<KeyEvent> {
 
+    private BoardDisplay display;
     private Board board;
 
-    public BoardKeyListener(Board board) {
+    public BoardKeyListener(BoardDisplay display, Board board) {
+        this.display = display;
         this.board = board;
     }
 
@@ -38,6 +39,7 @@ public class BoardKeyListener implements EventHandler<KeyEvent> {
                 break;
             case ENTER:
                 board.finalizeShip(ship);
+                display.updateShipBox(ship);
                 break;
         }
     }

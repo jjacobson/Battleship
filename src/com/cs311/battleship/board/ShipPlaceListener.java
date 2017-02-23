@@ -9,10 +9,12 @@ import javafx.scene.input.MouseEvent;
  */
 public class ShipPlaceListener implements EventHandler<MouseEvent> {
 
+    private BoardDisplay display;
     private Board board;
     private Ship ship;
 
-    public ShipPlaceListener(Board board, Ship ship) {
+    public ShipPlaceListener(BoardDisplay display, Board board, Ship ship) {
+        this.display = display;
         this.board = board;
         this.ship = ship;
     }
@@ -21,6 +23,7 @@ public class ShipPlaceListener implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
         if (board.isPlacing()) {
             board.finalizeShip(board.getShipPlacing());
+            display.updateShipBox(ship);
         }
         board.setPlacing(true);
         board.setShipPlacing(ship);

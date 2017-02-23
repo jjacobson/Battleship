@@ -14,7 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HP1 on 2/13/2017.
@@ -26,26 +28,35 @@ public class BoardDisplay {
 
     private BoardController controller;
 
+    private Map<Ship, HBox> shipDisplays;
+    private Pane pane;
+
     public void start(Stage stage, Board playerBoard, Board enemyBoard) throws Exception {
         this.playerBoard = playerBoard;
         this.enemyBoard = enemyBoard;
+        this.shipDisplays = new HashMap<>();
+
+        // load scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("board.fxml"));
-        Pane box = loader.load();
+        pane = loader.load();
         controller = loader.getController();
         stage.setTitle("Battleship Game");
-        Scene scene = new Scene(box, 1200, 600);
+        Scene scene = new Scene(pane, 1200, 600);
         stage.setScene(scene);
         stage.centerOnScreen();
+
         // key press listener
-        scene.setOnKeyPressed(new BoardKeyListener(playerBoard));
+        scene.setOnKeyPressed(new BoardKeyListener(this, playerBoard));
+
         // populate grids
-        GridPane playerGrid = (GridPane) box.lookup("#playerGrid");
-        GridPane enemyGrid = (GridPane) box.lookup("#enemyGrid");
+        GridPane playerGrid = (GridPane) pane.lookup("#playerGrid");
+        GridPane enemyGrid = (GridPane) pane.lookup("#enemyGrid");
         populateGrid(playerGrid, playerBoard);
         populateGrid(enemyGrid, enemyBoard);
         //populate ship placer
-        VBox shipBox = (VBox) box.lookup("#shipBox");
+        VBox shipBox = (VBox) pane.lookup("#shipBox");
         displayPlaceableShips(shipBox);
+
         stage.show();
     }
 
@@ -90,12 +101,26 @@ public class BoardDisplay {
             Button button = new Button();
             button.setMinWidth(25);
             button.setMinHeight(25);
-            button.setOnMouseClicked(new ShipPlaceListener(playerBoard, ship));
+            button.setOnMouseClicked(new ShipPlaceListener(this, playerBoard, ship));
             cell.setButton(button);
             cell.setColor(CellColor.SHIP);
             child.getChildren().add(button);
         }
         parent.getChildren().add(child);
         shipContainer.getChildren().add(parent);
+        shipDisplays.put(ship, parent);
+    }
+
+    public void updateShipBox(Ship ship) {
+        shipDisplays.get(ship).setVisible(false);
+        shipDisplays.remove(ship);
+        if (shipDisplays.size() == 0) {
+            removeShipBox();
+        }
+    }
+
+    public void removeShipBox() {
+        VBox shipDisplay = (VBox) pane.lookup("#shipDisplay");
+        shipDisplay.setVisible(false);
     }
 }
