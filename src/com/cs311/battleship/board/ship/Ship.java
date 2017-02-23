@@ -1,11 +1,5 @@
 package com.cs311.battleship.board.ship;
 
-import com.cs311.battleship.board.BoardController;
-import com.cs311.battleship.board.cell.BoardCell;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by HP1 on 2/13/2017.
  */
@@ -22,32 +16,32 @@ public class Ship {
         this.placed = false;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getX() {
         return x;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setX(int x) {
+        this.x = x;
     }
 
     public int getY() {
         return y;
     }
 
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public int getLength() {
         return length;
     }
 
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
     public Direction getDirection() {
         return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     public boolean isPlaced() {

@@ -98,72 +98,21 @@ public class Board {
         ship.setDirection(direction);
         ship.setX(x);
         ship.setY(y);
-        for (int i = 0; i < ship.getLength(); i++) {
-            BoardCell cell = null;
-            switch (direction) {
-                case NORTH:
-                    cell = getCell(x, y - i);
-                    break;
-                case SOUTH:
-                    cell = getCell(x, y + i);
-                    break;
-                case EAST:
-                    cell = getCell(x + i, y);
-                    break;
-                case WEST:
-                    cell = getCell(x - i, y);
-                    break;
-            }
+        for (BoardCell cell : getCells(ship)) {
             cell.setColor(CellColor.SHIP);
         }
         setPlaced(true);
     }
 
     public void removeShip(Ship ship) {
-        Direction direction = ship.getDirection();
-        int x = ship.getX();
-        int y = ship.getY();
-        for (int i = 0; i < ship.getLength(); i++) {
-            BoardCell cell = null;
-            switch (direction) {
-                case NORTH:
-                    cell = getCell(x, y - i);
-                    break;
-                case SOUTH:
-                    cell = getCell(x, y + i);
-                    break;
-                case EAST:
-                    cell = getCell(x + i, y);
-                    break;
-                case WEST:
-                    cell = getCell(x - i, y);
-                    break;
-            }
+        for (BoardCell cell : getCells(ship)) {
             cell.setColor(CellColor.WATER);
         }
         setPlaced(false);
     }
 
     public void finalizeShip(Ship ship) {
-        Direction direction = ship.getDirection();
-        int x = ship.getX();
-        int y = ship.getY();
-        for (int i = 0; i < ship.getLength(); i++) {
-            BoardCell cell = null;
-            switch (direction) {
-                case NORTH:
-                    cell = getCell(x, y - i);
-                    break;
-                case SOUTH:
-                    cell = getCell(x, y + i);
-                    break;
-                case EAST:
-                    cell = getCell(x + i, y);
-                    break;
-                case WEST:
-                    cell = getCell(x - i, y);
-                    break;
-            }
+        for (BoardCell cell : getCells(ship)) {
             cell.setContainsShip(true);
         }
         // reset placing states
@@ -195,6 +144,31 @@ public class Board {
             }
         }
         return directions;
+    }
+
+    private List<BoardCell> getCells(Ship ship) {
+        List<BoardCell> cells = new ArrayList<>();
+        int x = ship.getX();
+        int y = ship.getY();
+        for (int i = 0; i < ship.getLength(); i++) {
+            BoardCell cell = null;
+            switch (ship.getDirection()) {
+                case NORTH:
+                    cell = getCell(x, y - i);
+                    break;
+                case SOUTH:
+                    cell = getCell(x, y + i);
+                    break;
+                case EAST:
+                    cell = getCell(x + i, y);
+                    break;
+                case WEST:
+                    cell = getCell(x - i, y);
+                    break;
+            }
+            cells.add(cell);
+        }
+        return cells;
     }
 
     public Ship getShipPlacing() {

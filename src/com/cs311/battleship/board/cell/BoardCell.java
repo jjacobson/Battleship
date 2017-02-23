@@ -36,12 +36,12 @@ public class BoardCell {
         return y;
     }
 
-    public void setButton(Button button) {
-        this.button = button;
-    }
-
     public Button getButton() {
         return button;
+    }
+
+    public void setButton(Button button) {
+        this.button = button;
     }
 
     public boolean containsShip() {
