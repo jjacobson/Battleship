@@ -4,11 +4,12 @@ import com.cs311.battleship.board.cell.BoardCell;
 import com.cs311.battleship.board.cell.CellColor;
 import com.cs311.battleship.board.ship.Direction;
 import com.cs311.battleship.board.ship.Ship;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static com.cs311.battleship.board.ship.Direction.*;
 
 /**
  * Created by HP1 on 2/13/2017.
@@ -19,6 +20,11 @@ public class Board {
     private int width;
     private int height;
     private List<List<BoardCell>> board;
+
+    // for placing ships at game start
+    private Ship shipPlacing;
+    private boolean placing;
+    private boolean placed;
 
     public Board() {
         this(10, 10);
@@ -57,7 +63,7 @@ public class Board {
      * @return whether or not the cell is on the board
      */
     public boolean validCell(int x, int y) {
-        return !(x > width || y > height);
+        return !(x > width - 1 || x < 0 || y > height - 1 || y < 0);
     }
 
     /**
@@ -72,100 +78,122 @@ public class Board {
     }
 
     public void placeShip(Ship ship, int x, int y) {
-
+        List<Direction> directions = getAvailableDirections(x, y, ship.getLength());
+        if (directions.size() == 0) {
+            // todo error message no directions available
+            return;
+        }
+        placeShip(ship, x, y, directions.get(0));
     }
 
     public void placeShip(Ship ship, int x, int y, Direction direction) {
-
+        List<Direction> directions = getAvailableDirections(x, y, ship.getLength());
+        if (!directions.contains(direction)) {
+            // todo error message direction not available
+            return;
+        }
+        if (isPlaced()) {
+            removeShip(getShipPlacing());
+        }
+        ship.setDirection(direction);
+        ship.setX(x);
+        ship.setY(y);
+        for (int i = 0; i < ship.getLength(); i++) {
+            BoardCell cell = null;
+            switch (direction) {
+                case NORTH:
+                    cell = getCell(x, y - i);
+                    break;
+                case SOUTH:
+                    cell = getCell(x, y + i);
+                    break;
+                case EAST:
+                    cell = getCell(x + i, y);
+                    break;
+                case WEST:
+                    cell = getCell(x - i, y);
+                    break;
+            }
+            cell.setColor(CellColor.SHIP);
+        }
+        setPlaced(true);
     }
 
     public void removeShip(Ship ship) {
-
+        Direction direction = ship.getDirection();
+        int x = ship.getX();
+        int y = ship.getY();
+        for (int i = 0; i < ship.getLength(); i++) {
+            BoardCell cell = null;
+            switch (direction) {
+                case NORTH:
+                    cell = getCell(x, y - i);
+                    break;
+                case SOUTH:
+                    cell = getCell(x, y + i);
+                    break;
+                case EAST:
+                    cell = getCell(x + i, y);
+                    break;
+                case WEST:
+                    cell = getCell(x - i, y);
+                    break;
+            }
+            cell.setColor(CellColor.WATER);
+        }
+        setPlaced(false);
     }
 
     public void finalizeShip(Ship ship) {
 
     }
 
-    public boolean validShipLocation(Ship ship) {
-        int x = ship.getX();
-        int y = ship.getY();
-        switch (ship.getDirection()) {
-            case NORTH:
-                for (int i = 0; i < ship.getLength(); i++) {
-                    if (!validCell(x, y + i)) {
-                        return false;
-                    }
-                    if (cellOccupied(x, y + i)) {
-                        return false;
-                    }
-                }
-                break;
-            case SOUTH:
-                for (int i = 0; i < ship.getLength(); i++) {
-                    if (!validCell(x, y - i)) {
-                        return false;
-                    }
-                    if (cellOccupied(x, y - i)) {
-                        return false;
-                    }
-                }
-                break;
-            case EAST:
-                for (int i = 0; i < ship.getLength(); i++) {
-                    if (!validCell(x + i, y)) {
-                        return false;
-                    }
-                    if (cellOccupied(x + i, y)) {
-                        return false;
-                    }
-                }
-                break;
-            case WEST:
-                for (int i = 0; i < ship.getLength(); i++) {
-                    if (!validCell(x - i, y)) {
-                        return false;
-                    }
-                    if (cellOccupied(x - i, y)) {
-                        return false;
-                    }
-                }
-                break;
+    private List<Direction> getAvailableDirections(int x, int y, int length) {
+        List<Direction> directions = new ArrayList<>(Arrays.asList(NORTH, SOUTH, EAST, WEST));
+        for (int i = 0; i < length; i++) {
+            // north
+            if (!validCell(x, y - i) || cellOccupied(x, y - i)) {
+                directions.remove(NORTH);
+            }
+            // south
+            if (!validCell(x, y + i) || cellOccupied(x, y + i)) {
+                directions.remove(SOUTH);
+            }
+
+            // east
+            if (!validCell(x + i, y) || cellOccupied(x + i, y)) {
+                directions.remove(EAST);
+            }
+
+            // west
+            if (!validCell(x - i, y) || cellOccupied(x - i, y)) {
+                directions.remove(WEST);
+            }
         }
-        return true;
+        return directions;
     }
 
-    /**
-     * Display a ship on the board
-     * We use this to display ships as they are being placed
-     * Ship placement validation expected before calling
-     *
-     * @param ship to display
-     */
-    public void displayShip(Ship ship) {
-        switch (ship.getDirection()) {
-            case NORTH:
-                for (int i = 0; i < ship.getLength(); i++) {
-                    board.get(ship.getX()).get(ship.getY() + i).setColor(CellColor.SHIP);
-                }
-                break;
-            case SOUTH:
-                for (int i = 0; i < ship.getLength(); i++) {
-                    board.get(ship.getX()).get(ship.getY() - i).setColor(CellColor.SHIP);
-                }
-                break;
-            case EAST:
-                for (int i = 0; i < ship.getLength(); i++) {
-                    board.get(ship.getX() + i).get(ship.getY()).setColor(CellColor.SHIP);
-                }
-                break;
-            case WEST:
-                for (int i = 0; i < ship.getLength(); i++) {
-                    board.get(ship.getX() - i).get(ship.getY()).setColor(CellColor.SHIP);
-                }
-        }
+    public Ship getShipPlacing() {
+        return shipPlacing;
     }
 
+    public void setShipPlacing(Ship ship) {
+        this.shipPlacing = ship;
+    }
 
+    public boolean isPlacing() {
+        return placing;
+    }
 
+    public void setPlacing(boolean placing) {
+        this.placing = placing;
+    }
+
+    public boolean isPlaced() {
+        return placed;
+    }
+
+    public void setPlaced(boolean placed) {
+        this.placed = placed;
+    }
 }

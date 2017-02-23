@@ -14,10 +14,9 @@ public class Game {
     private Board enemyBoard;
 
     public Game(Stage menuStage) throws Exception {
+        BoardDisplay display = new BoardDisplay();
         playerBoard = new Board();
         enemyBoard = new Board();
-        BoardDisplay display = new BoardDisplay();
-        //board.setBoard(display.getBoard());
         display.start(menuStage, playerBoard, enemyBoard);
     }
 

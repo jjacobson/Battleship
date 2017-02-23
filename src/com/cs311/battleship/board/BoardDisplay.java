@@ -26,16 +26,9 @@ public class BoardDisplay {
 
     private BoardController controller;
 
-    private boolean placingShip;
-    private boolean inPlace;
-    private Ship shipPlacing;
-
-
     public void start(Stage stage, Board playerBoard, Board enemyBoard) throws Exception {
         this.playerBoard = playerBoard;
         this.enemyBoard = enemyBoard;
-        this.placingShip = false;
-        this.inPlace = false;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("board.fxml"));
         Pane box = loader.load();
         controller = loader.getController();
@@ -44,7 +37,7 @@ public class BoardDisplay {
         stage.setScene(scene);
         stage.centerOnScreen();
         // key press listener
-        scene.setOnKeyPressed(new BoardKeyListener(this, playerBoard));
+        scene.setOnKeyPressed(new BoardKeyListener(playerBoard));
         // populate grids
         GridPane playerGrid = (GridPane) box.lookup("#playerGrid");
         GridPane enemyGrid = (GridPane) box.lookup("#enemyGrid");
@@ -64,7 +57,7 @@ public class BoardDisplay {
                 Button button = new Button();
                 button.setMinWidth(30);
                 button.setMinHeight(30);
-                button.setOnMouseClicked(new CellClickListener(this, cell, board));
+                button.setOnMouseClicked(new CellClickListener(cell, board));
                 cell.setButton(button);
                 cell.setColor(CellColor.WATER);
                 grid.add(button, x, y);
@@ -97,36 +90,12 @@ public class BoardDisplay {
             Button button = new Button();
             button.setMinWidth(25);
             button.setMinHeight(25);
-            button.setOnMouseClicked(new ShipPlaceListener(this, ship));
+            button.setOnMouseClicked(new ShipPlaceListener(playerBoard, ship));
             cell.setButton(button);
             cell.setColor(CellColor.SHIP);
             child.getChildren().add(button);
         }
         parent.getChildren().add(child);
         shipContainer.getChildren().add(parent);
-    }
-
-    public void setPlacingShip(boolean placingShip) {
-        this.placingShip = placingShip;
-    }
-
-    public boolean isPlacingShip() {
-        return placingShip;
-    }
-
-    public void setShipPlacing(Ship shipPlacing) {
-        this.shipPlacing = shipPlacing;
-    }
-
-    public Ship getShipPlacing() {
-        return shipPlacing;
-    }
-
-    public boolean isInPlace() {
-        return inPlace;
-    }
-
-    public void setInPlace(boolean inPlace) {
-        this.inPlace = inPlace;
     }
 }

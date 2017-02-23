@@ -9,24 +9,18 @@ import javafx.scene.input.MouseEvent;
  */
 public class CellClickListener implements EventHandler<MouseEvent> {
 
-    private BoardDisplay display;
-    private BoardCell cell;
     private Board board;
+    private BoardCell cell;
 
-
-    public CellClickListener(BoardDisplay display, BoardCell cell, Board board) {
-        this.display = display;
-        this.cell = cell;
+    public CellClickListener(BoardCell cell, Board board) {
         this.board = board;
+        this.cell = cell;
     }
 
     @Override
     public void handle(MouseEvent event) {
-        if (display.isPlacingShip()) {
-            if (display.isInPlace()) {
-                board.removeShip(display.getShipPlacing());
-            }
-            board.placeShip(display.getShipPlacing(), cell.getX(), cell.getY());
+        if (board.isPlacing()) { // todo check which board
+            board.placeShip(board.getShipPlacing(), cell.getX(), cell.getY());
             return;
         }
     }

@@ -1,5 +1,7 @@
 package com.cs311.battleship.board;
 
+import com.cs311.battleship.board.ship.Direction;
+import com.cs311.battleship.board.ship.Ship;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -9,25 +11,33 @@ import javafx.scene.input.KeyEvent;
  */
 public class BoardKeyListener implements EventHandler<KeyEvent> {
 
-    private BoardDisplay display;
     private Board board;
 
-    public BoardKeyListener(BoardDisplay display, Board board) {
-        this.display = display;
+    public BoardKeyListener(Board board) {
         this.board = board;
     }
 
     @Override
     public void handle(KeyEvent event) {
-        if (!display.isPlacingShip()) {
+        if (!board.isPlacing()) {
             return;
         }
+        Ship ship = board.getShipPlacing();
         switch (event.getCode()) {
             case UP:
+                board.placeShip(ship, ship.getX(), ship.getY(), Direction.NORTH);
+                break;
             case DOWN:
-            case LEFT:
+                board.placeShip(ship, ship.getX(), ship.getY(), Direction.SOUTH);
+                break;
             case RIGHT:
+                board.placeShip(ship, ship.getX(), ship.getY(), Direction.EAST);
+                break;
+            case LEFT:
+                board.placeShip(ship, ship.getX(), ship.getY(), Direction.WEST);
+                break;
             case ENTER:
+                break;
         }
     }
 }
