@@ -2,6 +2,7 @@ package com.cs311.battleship.game;
 
 import com.cs311.battleship.board.Board;
 import com.cs311.battleship.board.BoardDisplay;
+import com.cs311.battleship.console.ConsoleWriter;
 import com.cs311.battleship.player.Player;
 import javafx.stage.Stage;
 
@@ -18,6 +19,8 @@ public class Game {
         playerBoard = new Board();
         enemyBoard = new Board();
         display.start(menuStage, playerBoard, enemyBoard);
+
+        ConsoleWriter.printLine("Hello world!");
     }
 
     public void makeMove(Player player) {

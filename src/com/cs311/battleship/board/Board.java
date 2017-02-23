@@ -14,7 +14,6 @@ import static com.cs311.battleship.board.ship.Direction.*;
 /**
  * Created by HP1 on 2/13/2017.
  */
-@SuppressWarnings("Duplicates")
 public class Board {
 
     private int width;
@@ -132,12 +131,10 @@ public class Board {
             if (!validCell(x, y + i) || cellOccupied(x, y + i)) {
                 directions.remove(SOUTH);
             }
-
             // east
             if (!validCell(x + i, y) || cellOccupied(x + i, y)) {
                 directions.remove(EAST);
             }
-
             // west
             if (!validCell(x - i, y) || cellOccupied(x - i, y)) {
                 directions.remove(WEST);

@@ -1,5 +1,8 @@
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.shape.Box?>
+<?import javafx.geometry.Insets?>
 <GridPane fx:controller="com.cs311.battleship.board.BoardController"
           xmlns:fx="http://javafx.com/fxml">
     <children>
@@ -11,7 +14,7 @@
             </Text>
             <VBox fx:id="shipBox" spacing="10"/>
         </VBox>
-        <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
             <VBox alignment="CENTER">
                 <Text text="Your Board">
                     <font>
@@ -21,7 +24,7 @@
                 <GridPane fx:id="playerGrid" alignment="CENTER" hgap="2" vgap="2"/>
             </VBox>
         </HBox>
-        <HBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
+        <HBox alignment="CENTER" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
             <VBox alignment="CENTER">
                 <Text text="Enemy Board">
                     <font>
@@ -31,18 +34,24 @@
                 <GridPane fx:id="enemyGrid" alignment="CENTER" hgap="2" vgap="2"/>
             </VBox>
         </HBox>
+        <TextArea fx:id="messageBox" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.columnSpan="2" />
 
     </children>
     <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="13.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="14.0" prefWidth="100.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES"/>
-        <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES"/>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="10.0" percentHeight="15" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="60.0" percentHeight="60" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" percentHeight="5" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" percentHeight="15" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" percentHeight="5" vgrow="SOMETIMES"/>
+
     </rowConstraints>
 </GridPane>

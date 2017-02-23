@@ -3,6 +3,7 @@ package com.cs311.battleship.board;
 import com.cs311.battleship.board.cell.BoardCell;
 import com.cs311.battleship.board.cell.CellColor;
 import com.cs311.battleship.board.ship.Ship;
+import com.cs311.battleship.console.ConsoleWriter;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -39,6 +40,7 @@ public class BoardDisplay {
         // load scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("board.fxml"));
         pane = loader.load();
+        new ConsoleWriter(pane);
         controller = loader.getController();
         stage.setTitle("Battleship Game");
         Scene scene = new Scene(pane, 1200, 600);
@@ -94,7 +96,7 @@ public class BoardDisplay {
         HBox parent = new HBox();
         // child display box
         HBox child = new HBox(2);
-        child.setPadding(new Insets(1, 1, 2, 1));
+        child.setPadding(new Insets(1, 1, 1, 1));
         child.setStyle("-fx-background-color: black;");
         for (int i = 0; i < ship.getLength(); i++) {
             BoardCell cell = new BoardCell(); // todo handle
