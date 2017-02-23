@@ -145,7 +145,31 @@ public class Board {
     }
 
     public void finalizeShip(Ship ship) {
-
+        Direction direction = ship.getDirection();
+        int x = ship.getX();
+        int y = ship.getY();
+        for (int i = 0; i < ship.getLength(); i++) {
+            BoardCell cell = null;
+            switch (direction) {
+                case NORTH:
+                    cell = getCell(x, y - i);
+                    break;
+                case SOUTH:
+                    cell = getCell(x, y + i);
+                    break;
+                case EAST:
+                    cell = getCell(x + i, y);
+                    break;
+                case WEST:
+                    cell = getCell(x - i, y);
+                    break;
+            }
+            cell.setContainsShip(true);
+        }
+        // reset placing states
+        setPlacing(false);
+        setPlaced(false);
+        setShipPlacing(null);
     }
 
     private List<Direction> getAvailableDirections(int x, int y, int length) {

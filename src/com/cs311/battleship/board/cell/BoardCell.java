@@ -48,6 +48,10 @@ public class BoardCell {
         return containsShip;
     }
 
+    public void setContainsShip(boolean containsShip) {
+        this.containsShip = containsShip;
+    }
+
     public boolean isGuessed() {
         return guessed;
     }
