@@ -12,6 +12,7 @@ public class ConsoleWriter {
 
     public ConsoleWriter(Pane pane) {
         textArea = (TextArea) pane.lookup("#messageBox");
+        textArea.setWrapText(true);
         textArea.setEditable(false);
     }
 
