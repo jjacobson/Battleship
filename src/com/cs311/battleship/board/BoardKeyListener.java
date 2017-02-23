@@ -38,8 +38,10 @@ public class BoardKeyListener implements EventHandler<KeyEvent> {
                 board.placeShip(ship, ship.getX(), ship.getY(), Direction.WEST);
                 break;
             case ENTER:
-                board.finalizeShip(ship);
-                display.updateShipBox(ship);
+                if (board.isPlaced()) {
+                    board.finalizeShip(ship);
+                    display.updateShipBox(ship);
+                }
                 break;
         }
     }
