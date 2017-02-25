@@ -4,10 +4,13 @@ import com.cs311.battleship.board.cell.BoardCell;
 import com.cs311.battleship.board.cell.CellColor;
 import com.cs311.battleship.board.ship.Direction;
 import com.cs311.battleship.board.ship.Ship;
+import com.cs311.battleship.game.Game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.cs311.battleship.board.ship.Direction.*;
 
@@ -15,6 +18,8 @@ import static com.cs311.battleship.board.ship.Direction.*;
  * Created by HP1 on 2/13/2017.
  */
 public class Board {
+
+    private Game game;
 
     private int width;
     private int height;
@@ -25,11 +30,12 @@ public class Board {
     private boolean placing;
     private boolean placed;
 
-    public Board() {
-        this(10, 10);
+    public Board(Game game) {
+        this(game, 10, 10);
     }
 
-    public Board(int width, int height) {
+    public Board(Game game, int width, int height) {
+        this.game = game;
         this.width = width;
         this.height = height;
         this.board = new ArrayList<>();
@@ -76,6 +82,12 @@ public class Board {
         return getCell(x, y).containsShip();
     }
 
+    public BoardCell getRandomCell() {
+        int x = ThreadLocalRandom.current().nextInt(0, width);
+        int y = ThreadLocalRandom.current().nextInt(0, height);
+        return board.get(x).get(y);
+    }
+
     public void placeShip(Ship ship, int x, int y) {
         List<Direction> directions = getAvailableDirections(x, y, ship.getLength());
         if (directions.size() == 0) {
@@ -97,17 +109,13 @@ public class Board {
         ship.setDirection(direction);
         ship.setX(x);
         ship.setY(y);
-        for (BoardCell cell : getCells(ship)) {
-            cell.setColor(CellColor.SHIP);
-        }
         setPlaced(true);
     }
 
-    public void removeShip(Ship ship) {
+    public void colorShip(Ship ship, String color) {
         for (BoardCell cell : getCells(ship)) {
-            cell.setColor(CellColor.WATER);
+            cell.setColor(color);
         }
-        setPlaced(false);
     }
 
     public void finalizeShip(Ship ship) {
@@ -120,7 +128,14 @@ public class Board {
         setShipPlacing(null);
     }
 
-    private List<Direction> getAvailableDirections(int x, int y, int length) {
+    public void removeShip(Ship ship) {
+        for (BoardCell cell : getCells(ship)) {
+            cell.setColor(CellColor.WATER);
+        }
+        setPlaced(false);
+    }
+
+    public List<Direction> getAvailableDirections(int x, int y, int length) {
         List<Direction> directions = new ArrayList<>(Arrays.asList(NORTH, SOUTH, EAST, WEST));
         for (int i = 0; i < length; i++) {
             // north

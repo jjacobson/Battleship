@@ -1,6 +1,7 @@
 package com.cs311.battleship.board;
 
 import com.cs311.battleship.board.cell.BoardCell;
+import com.cs311.battleship.board.cell.CellColor;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -21,6 +22,7 @@ public class CellClickListener implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
         if (board.isPlacing()) { // todo check which board
             board.placeShip(board.getShipPlacing(), cell.getX(), cell.getY());
+            board.colorShip(board.getShipPlacing(), CellColor.SHIP);
             return;
         }
     }

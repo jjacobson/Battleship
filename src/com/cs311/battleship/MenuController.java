@@ -1,6 +1,8 @@
 package com.cs311.battleship;
 
 import com.cs311.battleship.game.Game;
+import com.cs311.battleship.game.MultiPlayerGame;
+import com.cs311.battleship.game.SingePlayerGame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,7 +18,7 @@ public class MenuController {
         Button button = (Button) event.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         try {
-            new Game(stage);
+            new SingePlayerGame(stage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -27,7 +29,7 @@ public class MenuController {
         Button button = (Button) event.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         try {
-            new Game(stage);
+            new MultiPlayerGame(stage);
         } catch (Exception e) {
             e.printStackTrace();
         }

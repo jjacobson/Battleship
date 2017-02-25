@@ -9,11 +9,9 @@ public class Ship {
     private int y;
     private int length;
     private Direction direction;
-    private boolean placed;
 
     public Ship(int length) {
         this.length = length;
-        this.placed = false;
     }
 
     public int getX() {
@@ -44,7 +42,4 @@ public class Ship {
         this.direction = direction;
     }
 
-    public boolean isPlaced() {
-        return placed;
-    }
 }
