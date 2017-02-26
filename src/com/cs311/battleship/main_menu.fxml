@@ -4,4 +4,5 @@
       xmlns:fx="http://javafx.com/fxml" alignment="center" spacing="10">
     <Button text="Single Player" onAction="#singlePlayerSelect"/>
     <Button text="Multi Player" onAction="#multiPlayerSelect"/>
+    <Button text = "Rules" onAction="#rulesSelect"/>
 </VBox>
