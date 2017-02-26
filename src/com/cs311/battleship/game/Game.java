@@ -162,4 +162,7 @@ public class Game {
         return enemy;
     }
 
+    public boolean isRunning() {
+        return running;
+    }
 }

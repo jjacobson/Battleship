@@ -21,10 +21,10 @@ public class BoardKeyListener implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-        if (!board.isPlacing()) {
+        if (!board.inPlacementMode()) {
             return;
         }
-        Ship ship = board.getShipPlacing();
+        Ship ship = board.getShipInPlacement();
         boolean placed = false;
         switch (event.getCode()) {
             case UP:
@@ -40,7 +40,7 @@ public class BoardKeyListener implements EventHandler<KeyEvent> {
                 placed = board.placeShip(ship, ship.getX(), ship.getY(), Direction.WEST);
                 break;
             case ENTER:
-                if (board.isPlaced()) {
+                if (ship.isPlaced()) {
                     board.finalizeShip(ship);
                     display.updateShips(ship);
                 }

@@ -24,9 +24,9 @@ public class CellClickListener implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
-        if (board.isPlacing() && !board.isEnemy()) {
-            if (board.placeShip(board.getShipPlacing(), cell.getX(), cell.getY())) {
-                board.colorShip(board.getShipPlacing(), CellColor.SHIP);
+        if (board.inPlacementMode() && !board.isEnemy()) {
+            if (board.placeShip(board.getShipInPlacement(), cell.getX(), cell.getY())) {
+                board.colorShip(board.getShipInPlacement(), CellColor.SHIP);
             } else {
                 ConsoleWriter.printLine("There is no space for a ship there.");
             }
@@ -38,6 +38,9 @@ public class CellClickListener implements EventHandler<MouseEvent> {
     }
 
     private void makeMove() {
+        if (!game.isRunning()) {
+            return;
+        }
         if (!game.getPlayer().isTurn()) {
             ConsoleWriter.printLine("It's not your turn yet.");
             return;

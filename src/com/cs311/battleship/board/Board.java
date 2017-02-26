@@ -24,9 +24,8 @@ public class Board {
     private boolean enemy;
 
     // for placing ships at game start
-    private Ship shipPlacing;
-    private boolean placing;
-    private boolean placed;
+    private Ship shipInPlacement;
+    private boolean placementMode;
 
     public Board(List<Ship> ships, boolean enemy) {
         this(ships, enemy, 10, 10);
@@ -100,13 +99,13 @@ public class Board {
         if (!directions.contains(direction)) {
             return false;
         }
-        if (isPlaced()) {
-            removeShip(getShipPlacing());
+        if (ship.isPlaced()) {
+            removeShip(ship);
         }
         ship.setDirection(direction);
         ship.setX(x);
         ship.setY(y);
-        setPlaced(true);
+        ship.setPlaced(true);
         return true;
     }
 
@@ -122,16 +121,16 @@ public class Board {
             cell.setShip(ship);
         }
         // reset placing states
-        setPlacing(false);
-        setPlaced(false);
-        setShipPlacing(null);
+        setPlacementMode(false);
+        ship.setPlaced(true);
+        setShipInPlacement(null);
     }
 
     public void removeShip(Ship ship) {
         for (BoardCell cell : getCells(ship)) {
             cell.setColor(CellColor.WATER);
         }
-        setPlaced(false);
+        ship.setPlaced(false);
     }
 
     public List<Direction> getAvailableDirections(int x, int y, int length) {
@@ -182,28 +181,20 @@ public class Board {
         return cells;
     }
 
-    public Ship getShipPlacing() {
-        return shipPlacing;
+    public Ship getShipInPlacement() {
+        return shipInPlacement;
     }
 
-    public void setShipPlacing(Ship ship) {
-        this.shipPlacing = ship;
+    public void setShipInPlacement(Ship ship) {
+        this.shipInPlacement = ship;
     }
 
-    public boolean isPlacing() {
-        return placing;
+    public boolean inPlacementMode() {
+        return placementMode;
     }
 
-    public void setPlacing(boolean placing) {
-        this.placing = placing;
-    }
-
-    public boolean isPlaced() {
-        return placed;
-    }
-
-    public void setPlaced(boolean placed) {
-        this.placed = placed;
+    public void setPlacementMode(boolean placing) {
+        this.placementMode = placing;
     }
 
     public boolean isEnemy() {

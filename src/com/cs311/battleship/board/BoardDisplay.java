@@ -87,7 +87,7 @@ public class BoardDisplay {
             child.setPadding(new Insets(1, 1, 1, 1));
             child.setStyle("-fx-background-color: black;");
             for (int i = 0; i < ship.getLength(); i++) {
-                BoardCell cell = new BoardCell(); // todo handle
+                BoardCell cell = new BoardCell();
                 Button button = new Button();
                 button.setMinWidth(25);
                 button.setMinHeight(25);

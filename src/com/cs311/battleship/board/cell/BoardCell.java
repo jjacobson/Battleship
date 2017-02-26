@@ -20,7 +20,6 @@ public class BoardCell {
      * used for the placable ships at the beginning of game
      */
     public BoardCell() {
-
     }
 
     public BoardCell(int x, int y) {

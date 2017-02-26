@@ -21,14 +21,14 @@ public class ShipPlaceListener implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
-        if (board.getShipPlacing() == ship) {
+        if (board.getShipInPlacement() == ship) {
             return;
         }
-        if (board.isPlacing() && board.isPlaced()) {
-            display.updateShips(board.getShipPlacing());
-            board.finalizeShip(board.getShipPlacing());
+        if (board.inPlacementMode() && board.getShipInPlacement().isPlaced()) {
+            display.updateShips(board.getShipInPlacement());
+            board.finalizeShip(board.getShipInPlacement());
         }
-        board.setPlacing(true);
-        board.setShipPlacing(ship);
+        board.setPlacementMode(true);
+        board.setShipInPlacement(ship);
     }
 }

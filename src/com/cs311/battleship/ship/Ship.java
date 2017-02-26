@@ -10,9 +10,11 @@ public class Ship {
     private int length;
     private int hits;
     private Direction direction;
+    private boolean placed;
 
     public Ship(int length) {
         this.length = length;
+        this.placed = false;
         this.hits = 0;
     }
 
@@ -50,5 +52,13 @@ public class Ship {
 
     public void setHits(int hits) {
         this.hits = hits;
+    }
+
+    public boolean isPlaced() {
+        return placed;
+    }
+
+    public void setPlaced(boolean placed) {
+        this.placed = placed;
     }
 }
