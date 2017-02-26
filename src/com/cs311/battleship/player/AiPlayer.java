@@ -47,10 +47,8 @@ public class AiPlayer extends Player {
     }
 
     private void handleLastHit() {
-        System.out.println("calling last hit");
         Board enemyBoard = getGame().getPlayer().getBoard();
         if (previousHits.size() == 1) {
-            System.out.println("calling last hit size 1");
             List<Direction> adjDirections = getValidDirections(previousHits.get(0));
             int dir = ThreadLocalRandom.current().nextInt(0, adjDirections.size());
             Direction direction = adjDirections.get(dir);
@@ -58,13 +56,10 @@ public class AiPlayer extends Player {
             checkCell(cell);
             getGame().makeMove(this, enemyBoard, cell);
         } else if (previousHits.size() > 1) {
-            System.out.println("calling last hit size greater than 1");
             BoardCell twoBack = previousHits.get(previousHits.size() - 2);
             BoardCell oneBack = previousHits.get(previousHits.size() - 1);
             Direction direction = getDirection(twoBack, oneBack);
-            System.out.println("Determined direction is " + direction);
             if (reverse) {
-                System.out.println("reversal in progress");
                 BoardCell cell = getCellInDirection(oneBack, direction);
                 if (cell == null || cell.isGuessed()) {
                     // try new direction
@@ -79,7 +74,6 @@ public class AiPlayer extends Player {
                     getGame().makeMove(this, enemyBoard, cell);
                 }
             } else {
-                System.out.println("no reversal");
                 BoardCell cell = getCellInDirection(oneBack, direction);
                 if (cell == null || cell.isGuessed()) {
                     reverse = true;
@@ -172,8 +166,6 @@ public class AiPlayer extends Player {
 
 
     private BoardCell getCellInDirection(BoardCell start, Direction direction) {
-        System.out.print("Called get cell in dir with dir " + direction.toString());
-        System.out.println(" and cell " + start.getX() + ", " + start.getY());
         Board enemyBoard = getGame().getPlayer().getBoard();
         int x = start.getX();
         int y = start.getY();
@@ -191,7 +183,6 @@ public class AiPlayer extends Player {
                 x -= 1;
                 break;
         }
-        System.out.println("returning cell at " + x + ", " + y);
         return enemyBoard.validCell(x, y) ? enemyBoard.getCell(x, y) : null;
     }
 }
