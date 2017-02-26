@@ -7,7 +7,6 @@ import com.cs311.battleship.ship.Direction;
 import com.cs311.battleship.ship.Ship;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -50,6 +49,11 @@ public class AiPlayer extends Player {
         Board enemyBoard = getGame().getPlayer().getBoard();
         if (previousHits.size() == 1) {
             List<Direction> adjDirections = getValidDirections(previousHits.get(0));
+            if (adjDirections.size() == 0) {
+                previousHits.clear();
+                handleRandomGuess();
+                return;
+            }
             int dir = ThreadLocalRandom.current().nextInt(0, adjDirections.size());
             Direction direction = adjDirections.get(dir);
             BoardCell cell = getCellInDirection(previousHits.get(0), direction);
