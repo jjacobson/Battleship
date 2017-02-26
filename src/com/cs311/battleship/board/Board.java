@@ -87,20 +87,18 @@ public class Board {
         return board.get(x).get(y);
     }
 
-    public void placeShip(Ship ship, int x, int y) {
+    public boolean placeShip(Ship ship, int x, int y) {
         List<Direction> directions = getAvailableDirections(x, y, ship.getLength());
         if (directions.size() == 0) {
-            // todo error message no directions available
-            return;
+            return false;
         }
-        placeShip(ship, x, y, directions.get(0));
+        return placeShip(ship, x, y, directions.get(0));
     }
 
-    public void placeShip(Ship ship, int x, int y, Direction direction) {
+    public boolean placeShip(Ship ship, int x, int y, Direction direction) {
         List<Direction> directions = getAvailableDirections(x, y, ship.getLength());
         if (!directions.contains(direction)) {
-            // todo error message direction not available
-            return;
+            return false;
         }
         if (isPlaced()) {
             removeShip(getShipPlacing());
@@ -109,6 +107,7 @@ public class Board {
         ship.setX(x);
         ship.setY(y);
         setPlaced(true);
+        return true;
     }
 
     public void colorShip(Ship ship, String color) {

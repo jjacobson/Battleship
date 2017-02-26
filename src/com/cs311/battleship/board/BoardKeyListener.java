@@ -25,22 +25,19 @@ public class BoardKeyListener implements EventHandler<KeyEvent> {
             return;
         }
         Ship ship = board.getShipPlacing();
+        boolean placed = false;
         switch (event.getCode()) {
             case UP:
-                board.placeShip(ship, ship.getX(), ship.getY(), Direction.NORTH);
-                board.colorShip(ship, CellColor.SHIP);
+                placed = board.placeShip(ship, ship.getX(), ship.getY(), Direction.NORTH);
                 break;
             case DOWN:
-                board.placeShip(ship, ship.getX(), ship.getY(), Direction.SOUTH);
-                board.colorShip(ship, CellColor.SHIP);
+                placed = board.placeShip(ship, ship.getX(), ship.getY(), Direction.SOUTH);
                 break;
             case RIGHT:
-                board.placeShip(ship, ship.getX(), ship.getY(), Direction.EAST);
-                board.colorShip(ship, CellColor.SHIP);
+                placed = board.placeShip(ship, ship.getX(), ship.getY(), Direction.EAST);
                 break;
             case LEFT:
-                board.placeShip(ship, ship.getX(), ship.getY(), Direction.WEST);
-                board.colorShip(ship, CellColor.SHIP);
+                placed = board.placeShip(ship, ship.getX(), ship.getY(), Direction.WEST);
                 break;
             case ENTER:
                 if (board.isPlaced()) {
@@ -48,6 +45,9 @@ public class BoardKeyListener implements EventHandler<KeyEvent> {
                     display.updateShips(ship);
                 }
                 break;
+        }
+        if (placed) {
+            board.colorShip(ship, CellColor.SHIP);
         }
     }
 }
