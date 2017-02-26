@@ -1,4 +1,4 @@
-package com.cs311.battleship.board.ship;
+package com.cs311.battleship.ship;
 
 /**
  * Created by HP1 on 2/13/2017.

@@ -1,8 +1,8 @@
 package com.cs311.battleship.board;
 
 import com.cs311.battleship.board.cell.CellColor;
-import com.cs311.battleship.board.ship.Direction;
-import com.cs311.battleship.board.ship.Ship;
+import com.cs311.battleship.ship.Direction;
+import com.cs311.battleship.ship.Ship;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 
@@ -45,7 +45,7 @@ public class BoardKeyListener implements EventHandler<KeyEvent> {
             case ENTER:
                 if (board.isPlaced()) {
                     board.finalizeShip(ship);
-                    display.updateShipBox(ship);
+                    display.updateShips(ship);
                 }
                 break;
         }

@@ -2,42 +2,42 @@ package com.cs311.battleship.board;
 
 import com.cs311.battleship.board.cell.BoardCell;
 import com.cs311.battleship.board.cell.CellColor;
-import com.cs311.battleship.board.ship.Direction;
-import com.cs311.battleship.board.ship.Ship;
-import com.cs311.battleship.game.Game;
+import com.cs311.battleship.console.ConsoleWriter;
+import com.cs311.battleship.ship.Direction;
+import com.cs311.battleship.ship.Ship;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static com.cs311.battleship.board.ship.Direction.*;
+import static com.cs311.battleship.ship.Direction.*;
 
 /**
  * Created by HP1 on 2/13/2017.
  */
 public class Board {
 
-    private Game game;
-
     private int width;
     private int height;
     private List<List<BoardCell>> board;
+    private List<Ship> ships;
+    private boolean enemy;
 
     // for placing ships at game start
     private Ship shipPlacing;
     private boolean placing;
     private boolean placed;
 
-    public Board(Game game) {
-        this(game, 10, 10);
+    public Board(List<Ship> ships, boolean enemy) {
+        this(ships, enemy, 10, 10);
     }
 
-    public Board(Game game, int width, int height) {
-        this.game = game;
+    public Board(List<Ship> ships, boolean enemy, int width, int height) {
+        this.enemy = enemy;
         this.width = width;
         this.height = height;
+        this.ships = ships;
         this.board = new ArrayList<>();
         for (int x = 0; x < width; x++) {
             board.add(new ArrayList<>());
@@ -121,6 +121,7 @@ public class Board {
     public void finalizeShip(Ship ship) {
         for (BoardCell cell : getCells(ship)) {
             cell.setContainsShip(true);
+            cell.setShip(ship);
         }
         // reset placing states
         setPlacing(false);
@@ -206,4 +207,13 @@ public class Board {
     public void setPlaced(boolean placed) {
         this.placed = placed;
     }
+
+    public boolean isEnemy() {
+        return enemy;
+    }
+
+    public List<Ship> getShips() {
+        return ships;
+    }
+
 }

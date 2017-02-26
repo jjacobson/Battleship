@@ -1,6 +1,6 @@
 package com.cs311.battleship.board;
 
-import com.cs311.battleship.board.ship.Ship;
+import com.cs311.battleship.ship.Ship;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -25,7 +25,7 @@ public class ShipPlaceListener implements EventHandler<MouseEvent> {
             return;
         }
         if (board.isPlacing() && board.isPlaced()) {
-            display.updateShipBox(board.getShipPlacing());
+            display.updateShips(board.getShipPlacing());
             board.finalizeShip(board.getShipPlacing());
         }
         board.setPlacing(true);

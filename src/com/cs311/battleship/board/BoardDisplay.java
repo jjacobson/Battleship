@@ -2,7 +2,7 @@ package com.cs311.battleship.board;
 
 import com.cs311.battleship.board.cell.BoardCell;
 import com.cs311.battleship.board.cell.CellColor;
-import com.cs311.battleship.board.ship.Ship;
+import com.cs311.battleship.ship.Ship;
 import com.cs311.battleship.console.ConsoleWriter;
 import com.cs311.battleship.game.Game;
 import javafx.fxml.FXMLLoader;
@@ -73,7 +73,7 @@ public class BoardDisplay {
                 Button button = new Button();
                 button.setMinWidth(30);
                 button.setMinHeight(30);
-                button.setOnMouseClicked(new CellClickListener(cell, board));
+                button.setOnMouseClicked(new CellClickListener(game, board, cell));
                 cell.setButton(button);
                 cell.setColor(CellColor.WATER);
                 grid.add(button, x, y);
@@ -82,7 +82,7 @@ public class BoardDisplay {
     }
 
     private void displayShipPlacementBox(VBox shipBox) {
-        for (Ship ship : game.getShips()) {
+        for (Ship ship : playerBoard.getShips()) {
             // parent display box
             HBox parent = new HBox();
             // child display box
@@ -105,11 +105,12 @@ public class BoardDisplay {
         }
     }
 
-    public void updateShipBox(Ship ship) {
+    public void updateShips(Ship ship) {
         shipDisplays.get(ship).setVisible(false);
         shipDisplays.remove(ship);
         if (shipDisplays.size() == 0) {
             removeShipBox();
+            game.playerReady();
         }
     }
 

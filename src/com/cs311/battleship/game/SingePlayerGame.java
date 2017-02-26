@@ -1,10 +1,15 @@
 package com.cs311.battleship.game;
 
+import com.cs311.battleship.board.Board;
+import com.cs311.battleship.board.BoardDisplay;
 import com.cs311.battleship.board.cell.BoardCell;
 import com.cs311.battleship.board.cell.CellColor;
-import com.cs311.battleship.board.ship.Direction;
-import com.cs311.battleship.board.ship.Ship;
+import com.cs311.battleship.console.ConsoleWriter;
+import com.cs311.battleship.player.AiPlayer;
+import com.cs311.battleship.player.LocalPlayer;
 import com.cs311.battleship.player.Player;
+import com.cs311.battleship.ship.Direction;
+import com.cs311.battleship.ship.Ship;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -15,37 +20,60 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class SingePlayerGame extends Game {
 
-    public SingePlayerGame(Stage menuStage) throws Exception {
-        super(menuStage);
-        placeEnemeyShips();
+    public SingePlayerGame(Stage stage) throws Exception {
+        super(stage);
+        this.player = new LocalPlayer(new Board(getShips(), false));
+        this.enemy = new AiPlayer(new Board(getShips(), true));
+        BoardDisplay display = new BoardDisplay(this, player.getBoard(), enemy.getBoard());
+        display.start(stage);
+
+        ConsoleWriter.printLine("Welcome to battleship!");
+        ConsoleWriter.printLine("Place your ships to begin the game.");
+
+        placeEnemyShips();
     }
 
     @Override
-    public void makeMove(Player player) {
-        super.makeMove(player);
+    public void playerReady() {
+        start();
     }
 
-    public void placeEnemeyShips() {
-        for (Ship ship : getShips()) {
+    @Override
+    public void start() {
+        super.start();
+    }
+
+    @Override
+    public void makeMove(Player player, Board board, BoardCell cell) {
+        super.makeMove(player, board, cell);
+    }
+
+    @Override
+    public void endGame(boolean win) {
+        super.endGame(win);
+    }
+
+    private void placeEnemyShips() {
+        for (Ship ship : enemy.getBoard().getShips()) {
             while (true) {
-                BoardCell cell = enemyBoard.getRandomCell();
+                BoardCell cell = enemy.getBoard().getRandomCell();
                 if (cell.containsShip()) {
                     continue;
                 }
                 int x = cell.getX();
                 int y = cell.getY();
                 int length = ship.getLength();
-                List<Direction> directions = enemyBoard.getAvailableDirections(x, y, length);
+                List<Direction> directions = enemy.getBoard().getAvailableDirections(x, y, length);
                 if (directions.size() == 0) {
                     continue;
                 }
                 int randomDirection = ThreadLocalRandom.current().nextInt(0, directions.size());
                 Direction direction = directions.get(randomDirection);
-                enemyBoard.placeShip(ship, x, y, direction);
-                enemyBoard.finalizeShip(ship);
+                enemy.getBoard().placeShip(ship, x, y, direction);
+                enemy.getBoard().finalizeShip(ship);
                 break;
             }
         }
-        enemyBoard.getRandomCell();
+        enemy.getBoard().getRandomCell();
     }
 }

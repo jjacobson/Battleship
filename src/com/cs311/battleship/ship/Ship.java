@@ -1,4 +1,4 @@
-package com.cs311.battleship.board.ship;
+package com.cs311.battleship.ship;
 
 /**
  * Created by HP1 on 2/13/2017.
@@ -8,10 +8,12 @@ public class Ship {
     private int x;
     private int y;
     private int length;
+    private int hits;
     private Direction direction;
 
     public Ship(int length) {
         this.length = length;
+        this.hits = 0;
     }
 
     public int getX() {
@@ -42,4 +44,11 @@ public class Ship {
         this.direction = direction;
     }
 
+    public int getHits() {
+        return hits;
+    }
+
+    public void setHits(int hits) {
+        this.hits = hits;
+    }
 }
