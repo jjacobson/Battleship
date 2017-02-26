@@ -3,7 +3,6 @@ package com.cs311.battleship.game;
 import com.cs311.battleship.board.Board;
 import com.cs311.battleship.board.BoardDisplay;
 import com.cs311.battleship.board.cell.BoardCell;
-import com.cs311.battleship.board.cell.CellColor;
 import com.cs311.battleship.console.ConsoleWriter;
 import com.cs311.battleship.player.AiPlayer;
 import com.cs311.battleship.player.LocalPlayer;
@@ -22,8 +21,8 @@ public class SingePlayerGame extends Game {
 
     public SingePlayerGame(Stage stage) throws Exception {
         super(stage);
-        this.player = new LocalPlayer(new Board(getShips(), false));
-        this.enemy = new AiPlayer(new Board(getShips(), true));
+        this.player = new LocalPlayer(this, new Board(getShips(), false));
+        this.enemy = new AiPlayer(this, new Board(getShips(), true));
         BoardDisplay display = new BoardDisplay(this, player.getBoard(), enemy.getBoard());
         display.start(stage);
 
