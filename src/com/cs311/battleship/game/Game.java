@@ -6,10 +6,13 @@ import com.cs311.battleship.board.cell.CellColor;
 import com.cs311.battleship.console.ConsoleWriter;
 import com.cs311.battleship.player.Player;
 import com.cs311.battleship.ship.Ship;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -17,16 +20,22 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Game {
 
+    protected Stage stage;
+
     protected Player player;
     protected Player enemy;
+    protected boolean running;
 
     public Game(Stage stage) throws Exception {
+        this.stage = stage;
+        this.running = false;
     }
 
     public void playerReady() {
     }
 
     public void start() {
+        this.running = true;
         // choose a random player to take their turn first
         int randomPlayer = ThreadLocalRandom.current().nextInt(0, 2);
         if (randomPlayer == 0) {
@@ -39,6 +48,9 @@ public class Game {
     }
 
     public void makeMove(Player player, Board board, BoardCell cell) {
+        if (!running) {
+            return;
+        }
         cell.setGuessed(true);
         if (cell.containsShip()) {
             Ship ship = cell.getShip();
@@ -83,6 +95,7 @@ public class Game {
         Ship ship = cell.getShip();
         if (ship.getHits() == ship.getLength()) {
             ConsoleWriter.printLine("The enemy has destroyed one of your ships!");
+            board.getShips().remove(ship);
             if (board.getShips().size() == 0) {
                 endGame(false);
             }
@@ -102,7 +115,34 @@ public class Game {
     }
 
     public void endGame(boolean win) {
+        running = false;
+        player.setTurn(false);
+        enemy.setTurn(false);
+        if (win) {
+            ConsoleWriter.printLine("You have destroyed all the enemy ships and won the game!");
+        } else {
+            ConsoleWriter.printLine("All of your ships have been destroyed.");
+        }
+        showGameEndAlert(win);
     }
+
+    private void showGameEndAlert(boolean win) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Game Over");
+        if (win) {
+            alert.setHeaderText("Congratulations, you defeated all the enemy ships and won the game!");
+        } else {
+            alert.setHeaderText("Sorry, all of your ships were defeated by the enemy.");
+        }
+        alert.setContentText("Would you like to start a new game?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            startNewGame();
+        }
+    }
+
+    public void startNewGame() {}
 
     protected List<Ship> getShips() {
         List<Ship> ships = new ArrayList<>();

@@ -6,7 +6,6 @@ import com.cs311.battleship.board.cell.BoardCell;
 import com.cs311.battleship.console.ConsoleWriter;
 import com.cs311.battleship.player.AiPlayer;
 import com.cs311.battleship.player.LocalPlayer;
-import com.cs311.battleship.player.Player;
 import com.cs311.battleship.ship.Direction;
 import com.cs311.battleship.ship.Ship;
 import javafx.stage.Stage;
@@ -38,18 +37,12 @@ public class SingePlayerGame extends Game {
     }
 
     @Override
-    public void start() {
-        super.start();
-    }
-
-    @Override
-    public void makeMove(Player player, Board board, BoardCell cell) {
-        super.makeMove(player, board, cell);
-    }
-
-    @Override
-    public void endGame(boolean win) {
-        super.endGame(win);
+    public void startNewGame() {
+        try {
+            new SingePlayerGame(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void placeEnemyShips() {
