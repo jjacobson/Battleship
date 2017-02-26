@@ -2,7 +2,6 @@ package com.cs311.battleship.board;
 
 import com.cs311.battleship.board.cell.BoardCell;
 import com.cs311.battleship.board.cell.CellColor;
-import com.cs311.battleship.console.ConsoleWriter;
 import com.cs311.battleship.ship.Direction;
 import com.cs311.battleship.ship.Ship;
 
@@ -215,5 +214,4 @@ public class Board {
     public List<Ship> getShips() {
         return ships;
     }
-
 }
