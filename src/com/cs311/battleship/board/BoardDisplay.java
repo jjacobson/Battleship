@@ -27,8 +27,6 @@ public class BoardDisplay {
     private Board playerBoard;
     private Board enemyBoard;
 
-    private BoardController controller;
-
     private Map<Ship, HBox> shipDisplays;
     private Pane pane;
 
@@ -44,7 +42,6 @@ public class BoardDisplay {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("board.fxml"));
         pane = loader.load();
         new ConsoleWriter(pane);
-        controller = loader.getController();
         stage.setTitle("Battleship Game");
         Scene scene = new Scene(pane, 1200, 600);
         stage.setScene(scene);
