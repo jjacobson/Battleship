@@ -109,13 +109,14 @@ public class AiPlayer extends Player {
         if (cell.containsShip()) {
             Ship target = cell.getShip();
             state = AiState.LAST_HIT;
+            // destroyed target ship
             if (target.getHits() + 1 == target.getLength()) {
                 state = AiState.LAST_DESTROYED;
                 previousHits.clear();
                 reverse = false;
-                return;
+            } else {
+                previousHits.add(cell);
             }
-            previousHits.add(cell);
         } else if (state == AiState.HIT_LAST_MISSED || state == AiState.LAST_HIT) {
             state = AiState.HIT_LAST_MISSED;
         }
