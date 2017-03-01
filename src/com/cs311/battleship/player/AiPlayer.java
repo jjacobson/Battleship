@@ -20,7 +20,6 @@ public class AiPlayer extends Player {
 
     private AiState state;
     private boolean reverse;
-
     private List<BoardCell> previousHits;
 
     public AiPlayer(Game game, Board board) {
@@ -104,7 +103,6 @@ public class AiPlayer extends Player {
         getGame().makeMove(this, enemyBoard, cell);
     }
 
-
     private void checkCell(BoardCell cell) {
         if (cell.containsShip()) {
             Ship target = cell.getShip();
@@ -121,6 +119,13 @@ public class AiPlayer extends Player {
         }
     }
 
+    /**
+     * Get the valid directions of possible guesses for a given cell
+     * Gives a list of directions to adjacent cells which have not been guessed, and are valid
+     *
+     * @param cell to get adjacent cell directions for
+     * @return list of directions toward adjacent cells
+     */
     private List<Direction> getValidDirections(BoardCell cell) {
         List<Direction> directions = new ArrayList<>();
         int x = cell.getX();
@@ -144,6 +149,14 @@ public class AiPlayer extends Player {
         return directions;
     }
 
+    /**
+     * Get the direction between two adjacent board cells
+     * Direction points in the direction from the first cell to the last cell
+     *
+     * @param first board cell
+     * @param last second board cell
+     * @return direction from first to second cell
+     */
     private Direction getDirection(BoardCell first, BoardCell last) {
         int firstX = first.getX();
         int firstY = first.getY();
@@ -168,7 +181,13 @@ public class AiPlayer extends Player {
         return null;
     }
 
-
+    /**
+     * Get the cell adjacent to the given cell, in the given direction
+     *
+     * @param start origin cell
+     * @param direction direction of adjacent cell
+     * @return the cell adjacent to start in the given direction
+     */
     private BoardCell getCellInDirection(BoardCell start, Direction direction) {
         Board enemyBoard = getGame().getPlayer().getBoard();
         int x = start.getX();
