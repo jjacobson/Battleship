@@ -1,0 +1,27 @@
+Board
+#As a user I want to be able to see the board and interact with it - 6 points
+#As a user I want to be able to see the enemy board and interact with it - 4 points
+#As a user I want to be able to place ships on the board - 5 points
+#As a user I want to be able to choose the direction my ships point - 3 points
+#As a user I want to be able to select enemy tiles to fire at - 2 points
+#As a user I want to be able to see if my shots were hits or misses - 3 points
+#As a user I want to be able to see if enemy shots were hits or misses - 3 points
+
+Game
+As a user I want a turn system - 7 points
+#As a user I want to be informed on what is happening (print output to gui) - 5 points
+#As a user I want the game to choose a random person to move first - 2 points
+#As a user I want to know the directions and rules of the game - 2 points
+#As a user I want to know who wins or loses the game at the end - 3 points
+#As a user I want to be able to restart the game once it ends - 3 points
+#As a user I want to be told who's turn it is, and the effects of that turn once it ends - 3 points
+
+AI
+#As a user I want the AI to place its ships in random locations and orientations - 5 points
+#The AI should guess randomly until getting a hit - 3 points
+#The AI should try to make educated shots after a hit, in order to complete sinking the ship - 8 points
+
+Mulitplayer
+As a user I want to be able to play against other players online - 15 points
+As a user I want to be able to host a multiplayer game - 8 points
+As a user I want to be able to join a multiplayer game - 8 points
