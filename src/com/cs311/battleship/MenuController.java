@@ -44,7 +44,7 @@ public class MenuController {
     @FXML
     public void rulesSelect(ActionEvent event){
         ListView<String> list = new ListView<>();
-        list.setPrefWidth(350);
+        list.setPrefWidth(355);
         ObservableList<String> items = FXCollections.observableArrayList (
                 "Begin the game by placing your battleships. To place them, \n" +
                         "select one by clicking on it and choose a place for it on \n" +

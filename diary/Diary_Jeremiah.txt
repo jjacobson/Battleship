@@ -3,3 +3,66 @@ Time spent planning (1 hour)
 
 We started talking about the structure of the project and what classes will go where, how the multiplayer will be added, and how the ai will play against human players. For the multiplayer, we settled on some sort of matchmaking system that will detect other players searching for a game and match you up with them. For the single player, the computer will randomly select tiles until it gets a hit on a battleship, and then strategically play around that point until the ship is sunk, similar to how a human would play in that situation.
 Time spent planning (2 hours)
+
+Working as pair programmers we started working on the basic structure of the project, creating the board, player, game, and some other classes. We added some basic functions and fields to the classes but there is not much functionality yet. Pair programming during this was nice because we were able to agree on the basic structure of the project, so working on seperate parts later should be much eaiser.
+Time spent (1 hour)
+
+We started working on basic GUI together as pair programmers, and we were able to get the window to pop up and display some buttons. From there we added a basic boad layout that is made up of a grid of buttons. Clicking on the buttons currently does nothing but it will be easy to add listeners from here.
+Time spent (2 hours)
+User stories completed:
+As a user I want to be able to see my board and interact with it - 6 points
+As a user I want to be able to see the enemy board and interact with it - 4 points
+
+We started working on placing ships. We got to the point were you could place a ship on the board in one static direction. We also added some error checking to make sure ships can't be placed outside the board, or in directions that will point outside the board. Next we will work on changing the directions after placing the ship, so that you can place them in any orientation or place you want.
+Time spent (3 hours)
+User stories completed:
+As a user I want to be able to place ships on the board - 5 points
+
+We completed the ship placement, and now you can use arrow keys to change the direction that ships will point when placing them. You can finilize the ship placement by pressing the enter key or choosing the next ship in the list. Now users can place ships with any orientation on any tile where there is room.
+We also added the text console to the GUI which will print the game status, including things like who's turn it is, whether shots were misses or hits, who wins the game, etc.
+Time spent (3 hours)
+User stories completed:
+As a user I want to be able to choose the direction my ships point - 3 points
+As a user I want to be informed on what is happening (print output to gui) - 5 points
+
+Started working on the basic turn system. The game now chooses a random player to go first, and prompts them through the output console. Currently players still can't take turns yet but the basic structure of the turn based system is in place. Also added some basic messages that alert the user to which players turn it is, and the outcome of that turn once it is complete.
+Time spent (1.5 hours)
+User stories completed:
+As a user I want to be told who's turn it is, and the effects of that turn once it ends - 3 points
+As a user I want the game to choose a random person to move first - 2 points
+
+Started working on the enemy AI placing its ships. It chooses random tiles, and places ships in random orientations on those tiles. Currently the AI still doesn't make any moves.
+Time spent (1 hour)
+User stories completed:
+As a user I want the AI to place its ships in random locations and orientations - 5 points
+
+Spent some tile cleaning up functions based on what we learned in class. Removed some boolean variables from function paramaters, and split those functions up as they really work better seperately. Also renamed some bad variables and moved some functions to different classes where they fit better.
+Time spent (1 hour)
+
+Finished up the turn system for players. Players can now select enemy AI tiles to fire at when it is their turn. Tiles will change color to RED on a hit, or WHITE on a miss. The user will also be notified in the output box of whether or not the shot was a hit/miss, and if the shot destroyed a ship. Enemies still can't return fire yet.
+Time spent (1 hour)
+User stories completed:
+As a user I want to be able to select enemy tiles to fire at - 2 points
+As a user I want to be able to see if my shots were hits or misses - 3 points
+
+Started working on the most basic enemy AI, which randomly chooses tiles that have not been fired and fires at them. Currently the AI only does random guesses but we will be adding smarter choices soon. Currently users can play an entire game, but nothing happens at the end and the enemy isn't very smart. Enemy shots at the user will be displayed on the users board, and will notify the user about hits/misses/ships destroyed.
+Time spent (2 hours)
+User stories completed:
+As a user I want to be able to see if enemy shots were hits or misses - 3 points
+The AI should guess randomly until getting a hit - 3 points
+
+Worked on the end game systems. When a player sinks all the enemy ships, or the players ships are sunk, the game will end and a popup will be displayed alerting the user to who won the game. The pop up has the option to play another game, which resets the current games state and starts the game over.
+Time spent (1 hour)
+User stories completed:
+As a user I want to know who wins or loses the game at the end - 3 points
+As a user I want to be able to restart the game once it ends - 3 points
+
+Finished working on the enemy AI. We were able to make it pretty smart, including targeting ships that it previously hit until sinking it. The AI randomly fires until hitting a ship, and then targets that ship until it is destroyed. If the first hit was in the center of a ship, the AI will get to the end of the ship, and then go back to the other side to finish sinking it. Currently works pretty well even for big groups of ships which touch eachother. The game is now basically complete, users and the AI can take their turns, and once the game is over you can play again or quit.
+Time spent (3 hours)
+User stories completed:
+The AI should try to make educated shots after a hit, in order to complete sinking the ship - 8 points
+
+Added the final touches to the game, including the rules and directions page which informs users on how to place ships, and play the game. This page can be accessed through a button on the main menu of the game.
+Time spent (1 hour)
+User stories completed:
+As a user I want to know the directions and rules of the game - 2 points
